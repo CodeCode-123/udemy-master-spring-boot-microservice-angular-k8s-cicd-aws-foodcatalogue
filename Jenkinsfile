@@ -4,6 +4,7 @@ pipeline {
   environment {
     DOCKERHUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIAL')
     VERSION = "${env.BUILD_ID}"
+    PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:${env.PATH}"
   }
 
   tools {
@@ -11,6 +12,12 @@ pipeline {
   }
 
   stages {
+    stage('Build') {
+      steps {
+        sh 'docker --version'
+      }
+    }
+
     stage('Maven Build') {
       steps {
         sh 'mvn clean package -DskipTests'
