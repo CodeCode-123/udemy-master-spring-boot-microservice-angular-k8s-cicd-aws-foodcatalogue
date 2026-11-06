@@ -86,7 +86,7 @@ pipeline {
           checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[ credentialsId: 'git-ssh', url: 'git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git']])
           sshagent(['git-ssh']) {
                 sh '''
-                  sed -i.bak "s/image:.*/image: codecode123\\/foodcatalogue-arm-cicd:${VERSION}/g" foodcatalogue-manifest.yaml
+                  sed -i '' "s/image:.*/image: codecode123\\/foodcatalogue-arm-cicd:${VERSION}/g" foodcatalogue-manifest.yaml
                 '''
                 sh 'git checkout main'
                 sh 'git pull origin main'
