@@ -88,6 +88,7 @@ pipeline {
                 sh '''
                   sed -i.bak "s/image:.*/image: codecode123\\/foodcatalogue-arm-cicd:${VERSION}/g" foodcatalogue-manifest.yaml
                 '''
+                sh 'git clean -fdx'
                 sh 'git checkout main'
                 sh 'git pull origin main'
                 sh 'git add foodcatalogue-manifest.yaml'
