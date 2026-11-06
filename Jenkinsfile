@@ -88,8 +88,10 @@ pipeline {
                 sh '''
                   sed -i '' "s/image:.*/image: codecode123\\/foodcatalogue-arm-cicd:${VERSION}/g" foodcatalogue-manifest.yaml
                 '''
+                sh 'git stash'
                 sh 'git checkout main'
                 sh 'git pull origin main'
+                sh 'git stash pop'
                 sh 'git add foodcatalogue-manifest.yaml'
                 sh 'git commit -m "Update image tag [skip ci]" || true'
                 sh 'git push origin HEAD:main'
