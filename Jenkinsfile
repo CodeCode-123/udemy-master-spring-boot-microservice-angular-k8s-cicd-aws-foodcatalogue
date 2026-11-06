@@ -87,11 +87,13 @@ pipeline {
           sshagent(['git-ssh']) {
                 sh '''
                   sed -i.bak "s/image:.*/image: codecode123\\/foodcatalogue-arm-cicd:${VERSION}/g" backend/foodcatalogue-manifest.yaml
+                  git add .
+                  git commit -m "Update image tag [skip ci]" || true
                 '''
                 sh 'git checkout main'
                 sh 'git pull origin main'
-                sh 'git add .'
-                sh 'git commit -m "Update image tag [skip ci]" || true'
+//                 sh 'git add .'
+//                 sh 'git commit -m "Update image tag [skip ci]" || true'
                 sh 'git push origin HEAD:main'
               }
         }
